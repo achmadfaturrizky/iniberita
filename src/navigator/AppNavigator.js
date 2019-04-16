@@ -60,7 +60,7 @@ const MainNavigator = createStackNavigator({
     screen: BottomNavigator,
 
     navigationOptions: {
-      headerTitleStyle: { textAlign: 'center', flex: 1, color: Colors.black, fontFamily: Fonts.type.bold },
+      headerTitleStyle: { textAlign: 'center', flex: 1, color: Colors.black, fontSize: 15, fontFamily: Fonts.type.bold },
       title: 'INI BERITA'
     },
 
