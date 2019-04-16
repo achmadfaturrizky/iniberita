@@ -1,7 +1,8 @@
 import React from 'react';
-import styled from 'styled-components/native';
-import { Images, Fonts } from '../../../themes';
-import { formatTime } from '../../../helpers';
+import { TouchableOpacity, StyleSheet, View, Text, Image} from 'react-native';
+import { Images, Fonts, Colors } from '../../../themes';
+import { widthPercentageToDP as wp, heightPercentageToDP as hp, listenOrientationChange as loc, removeOrientationListener as rol } from 'react-native-responsive-screen';
+import Moment from 'moment';
 
 const Section = props => {
   const { searchResult } = props;
@@ -16,91 +17,103 @@ const Section = props => {
 
   if (searchResult) {
     return (
-      <Container>
-        <Content>
-          <Title numberOfLines={2}>{headline.main}</Title>
-          <Author>{byline.original}</Author>
-          <Date>{formatTime(pub_date)}</Date>
-        </Content>
-        <Cover>
+      <View style={styles.rootView}>
+      <View style={styles.container}>
+        <View style={styles.content}>
+          <Text style={styles.title} numberOfLines={2}>{headline.main}</Text>
+          <Text style={styles.author}>{byline.original}</Text>
+          <Text style={styles.date}>{Moment(pub_date).startOf('day').fromNow()}</Text>
+        </View>
+        <View style={styles.cover}>
           {multimedia.length > 1 ? (
             <Image
+              style={styles.image}
               source={{ uri: `https://static01.nyt.com/${multimedia[4].url}` }}
             />
           ) : (
-            <Image source={{ uri: Images.noImage }} />
+            <Image style={styles.image} source={{ uri: Images.noImage }} />
           )}
-        </Cover>
-      </Container>
+        </View>
+      </View>
+      </View>
     );
   }
 
   return (
-    <Container>
-      <Content>
-        <Title numberOfLines={2}>{title}</Title>
-        <Author>{byline}</Author>
-        <Date>{formatTime(published_date)}</Date>
-      </Content>
-      <Cover>
+    <View style={styles.rootView}>
+    <View style={styles.container}>
+      <View style={styles.content}>
+        <Text style={styles.title} numberOfLines={2}>{title}</Text>
+        <Text style={styles.author}>{byline}</Text>
+        <Text style={styles.date}>{Moment(published_date).startOf('day').fromNow()}</Text>
+      </View>
+      <View style={styles.cover}>
         {multimedia.length ? (
-          <Image source={{ uri: multimedia[4].url }} />
+          <Image style={styles.image} source={{ uri: multimedia[4].url }} />
         ) : (
-          <Image source={{ uri: Images.noImage }} />
+          <Image style={styles.image} source={{ uri: Images.noImage }} />
         )}
-      </Cover>
-    </Container>
+      </View>
+    </View>
+    </View>
   );
 };
 
 export default Section;
 
-const Container = styled.View`
-  flex: 1;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
-  background-color: white;
-  height: 150px;
-  border-radius: 14px;
-  margin: 10px 20px 10px 20px;
-  elevation: 10;
-`;
+const styles = StyleSheet.create({
+  rootView:{
+    justifyContent: 'center',
+    alignItems: 'center',
+    bottom: hp('2.5%')
+  },
+  container: {
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: Colors.white,
+    height: hp('20%'),
+    width: wp('90%'),
+    borderRadius: 10,
+    elevation: 10,
+    margin: 10
+  },
+  content: {
+    flex: 0.7,
+    justifyContent: 'space-around',
+    flexDirection: 'column',
+    alignItems: 'flex-start',
+    bottom: hp('1%')
 
-const Content = styled.View`
-  flex: 0.7;
-  padding-left: 10px;
-`;
+  },
+  cover: {
+    flex: 0.3,
+    alignItems: 'center'
+  },
+  image: {
+    width: hp('15%'),
+    height: wp('20%'),
+    right: wp('3%')
+  },
+  title: {
+    fontFamily: Fonts.type.bold,
+    color: Colors.darkGray,
+    fontSize: hp('2%'),
+    padding: 10,
+  },
+  author: {
+    fontFamily: Fonts.type.bold,
+    color: Colors.darkGray,
+    fontSize: wp('2.5%'),
+    left: wp('3%'),
+    bottom: hp('1%')
+  },
+  date: {
+    color: Colors.darkGray,
+    fontSize: wp('2%'),
+    left: wp('3%'),
+    bottom: hp('1%')
 
-const Cover = styled.View`
-  flex: 0.3;
-  align-items: center;
-  justify-content: center;
-`;
-
-const Image = styled.Image`
-  width: 100px;
-  height: 100px;
-  border-radius: 14px;
-`;
-
-const Title = styled.Text`
-  font-family: ${Fonts.type.bold};
-  font-size: 22px;
-  font-weight: bold;
-`;
-
-const Author = styled.Text`
-  font-family: ${Fonts.type.bold};
-  color: #b8bece;
-  font-size: 15px;
-  font-weight: ${Fonts.weight.large};
-  margin-top: 2px;
-`;
-
-const Date = styled.Text`
-  color: #b8bece;
-  font-size: 15px;
-  font-weight: ${Fonts.weight.large};
-  margin-top: 2px;
-`;
+  }
+})

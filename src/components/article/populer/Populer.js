@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
-import { Platform, ScrollView, StyleSheet, StatusBar, Text, View, Image, ImageBackground, TouchableHighlight, Alert } from 'react-native';
+import { StyleSheet, Text, View, Image } from 'react-native';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp, listenOrientationChange as loc, removeOrientationListener as rol } from 'react-native-responsive-screen';
+import LinearGradient from "react-native-linear-gradient";
+
 import { Fonts, Images } from '../../../themes';
 import Moment from 'moment';
 
@@ -9,12 +11,26 @@ const Populer = props => {
 
   return (
     <View style={styles.container}>
+    
       <View style={styles.cover}>
         {multimedia.length ? (
+          
           <Image style={styles.image} source={{ uri: multimedia[4].url }} />
         ) : (
             <Image style={styles.image} source={{ uri: Images.noImage }} />
           )}
+          <LinearGradient
+          colors={["rgba(0,0,0,0.8)", "transparent"]}
+          start={{ x: 0, y: 1 }}
+          end={{ x: 0, y: 0 }}
+          style={{
+            position: "absolute",
+            left: 0,
+            right: 0,
+            width: wp('100%'),
+            height: hp('80%')
+          }}
+        />
       </View>
       <View style={styles.content}>
         <Text style={styles.title} numberOfLines={2}>{title}</Text>
@@ -30,8 +46,8 @@ export default Populer;
 
 const styles = StyleSheet.create({
   container: {
-   justifyContent: 'center',
-   alignItems: 'center'
+    justifyContent: 'center',
+    alignItems: 'center'
   },
   content: {
     bottom: hp('30%'),
@@ -41,11 +57,11 @@ const styles = StyleSheet.create({
     width: wp('100%'),
     height: hp('80%')
   },
-  cover:{
+  cover: {
     justifyContent: 'center',
     alignItems: 'center'
   },
-  title:{
+  title: {
     fontFamily: Fonts.type.bold,
     fontSize: wp('4.5%'),
     color: '#fff'
@@ -58,7 +74,7 @@ const styles = StyleSheet.create({
   },
   author: {
     fontFamily: Fonts.type.regular,
-    color:'#fff',
+    color: '#fff',
     top: hp('1%'),
     fontSize: wp('4%')
   },
