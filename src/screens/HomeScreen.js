@@ -2,20 +2,17 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import {
   ScrollView,
-  SafeAreaView,
   TouchableOpacity,
   Animated,
-  Easing,
   StatusBar,
   View,
   Text,
-  Image,
   StyleSheet
 } from 'react-native';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp, listenOrientationChange as loc, removeOrientationListener as rol } from 'react-native-responsive-screen';
 
 // Actions
-import {  getArticles } from '../publics/actions';
+import { getArticles } from '../publics/actions';
 
 // Components
 import { NewsLoader } from '../components/loader';
@@ -23,6 +20,7 @@ import FlatList from '../components/flatlist';
 import Populer from '../components/article/populer';
 import ArticleSection from '../components/article/section';
 import Trending from '../components/article/trending';
+
 import { Colors, Fonts } from '../themes';
 
 class HomeScreen extends Component {
@@ -37,10 +35,11 @@ class HomeScreen extends Component {
   };
 
   componentDidMount() {
-    StatusBar.setBackgroundColor(Colors.silver, true);
+    StatusBar.setBackgroundColor(Colors.white, true);
     StatusBar.setBarStyle('dark-content');
 
     this.props.getArticles();
+    
   }
 
   renderItemTrendingArticle = ({ item }) => (
@@ -135,14 +134,6 @@ class HomeScreen extends Component {
                     <View style={styles.line} />
                     {this.renderTrendingArticle(NewsSection)}
 
-                    <Text style={styles.subTitle}>Opinion</Text>
-                    {this.renderSectionArticle(OpinionSection)}
-
-                    <Text style={styles.subTitle}>Arts</Text>
-                    {this.renderSectionArticle(ArtsSection)}
-
-                    <Text style={styles.subTitle}>Living</Text>
-                    {this.renderSectionArticle(LivingSection)}
                     </View>
                   </>
                 )}
@@ -155,7 +146,7 @@ class HomeScreen extends Component {
   }
 }
 
-const mapStateToProps = ({  article }) => ({
+const mapStateToProps = ({ article }) => ({
   articles: article.articles,
   articleLoading: article.isLoading
 });

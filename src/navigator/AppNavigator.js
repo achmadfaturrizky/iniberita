@@ -6,15 +6,15 @@ import {
   createSwitchNavigator
 } from 'react-navigation';
 // Components
-import { Image, Text, View } from 'react-native';
-import { widthPercentageToDP as wp, heightPercentageToDP as hp, listenOrientationChange as loc, removeOrientationListener as rol } from 'react-native-responsive-screen';
-import { Fonts, Colors } from '../themes';
+import {Image, Text, View } from 'react-native';
+import { Fonts, Images } from '../themes';
 // Screens
 import {
-  Home
+  Home,
+  Book,
+  SearchArticle,
+  Article
 } from '../screens';
-
-// Bottom Navigator
 
 const BottomNavigator = createBottomTabNavigator({
   Home: {
@@ -26,8 +26,17 @@ const BottomNavigator = createBottomTabNavigator({
       )
     }
   },
+  Book: {
+    screen: Book,
+    navigationOptions: {
+      tabBarLabel: 'Buku',
+      tabBarIcon: ({ tintColor }) => (
+        <Image source={require('../assets/icon/agenda.png')} style={{ height: 21, width: 21, tintColor: tintColor, top: 5 }} />
+      )
+    }
+  },
   Search: {
-    screen: Home,
+    screen: SearchArticle,
     navigationOptions: {
       tabBarLabel: 'Cari',
       tabBarIcon: ({ tintColor }) => (
@@ -39,13 +48,13 @@ const BottomNavigator = createBottomTabNavigator({
   {
     tabBarOptions: {
       header: null,
-      activeTintColor: Colors.primary,
-      inactiveTintColor: Colors.black,
+      activeTintColor: '#00a699',
+      inactiveTintColor: '#000',
       style: {
-        backgroundColor: Colors.white,
+        backgroundColor: 'white',
         borderTopWidth: 0,
         shadowOffset: { width: 5, height: 3 },
-        shadowColor: Colors.black,
+        shadowColor: 'black',
         shadowOpacity: 0.5,
         elevation: 5,
         height: 50
@@ -58,26 +67,26 @@ const BottomNavigator = createBottomTabNavigator({
 const MainNavigator = createStackNavigator({
   Home: {
     screen: BottomNavigator,
-
+   
     navigationOptions: {
-      headerTitleStyle: { textAlign: 'center', flex: 1, color: Colors.black, fontSize: 15, fontFamily: Fonts.type.bold },
+      headerTitleStyle: {textAlign: 'center', flex: 1, color: '#000', fontSize: 15, fontFamily: Fonts.type.bold},
       title: 'INI BERITA'
     },
-
+    
   },
-  // Article: { screen: Article },
-
+  Article: { screen: Article },
+  Book: { screen: Book },
+  SearchArticle: { screen: SearchArticle },
 })
-// Switch Navigator
-
-const AppContainer = createAppContainer(
-  createSwitchNavigator(
-    {
-      App: MainNavigator
-    },
-    {
-      initialRouteName: "App"
-    }
-  )
-);
-export default AppContainer;
+  
+  const AppContainer = createAppContainer(
+    createSwitchNavigator(
+      {
+        App: MainNavigator
+      },
+      {
+        initialRouteName: "App"
+      }
+    )
+  );
+  export default AppContainer;
