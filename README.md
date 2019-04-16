@@ -47,13 +47,12 @@ npm run ios       //ios
 ### Demo
 
 <div align="center">
-  <img src="docs/1.gif"/>
-  <img src="docs/2.gif"/>
+  <img width="100" height="100" src="docs/1.gif"/>
+  <img width="100" height="100" src="docs/2.gif"/>
 </div>
 &nbsp;
 <div align="center">
-  <img src="docs/3.gif"/>
-  <img src="docs/3.gif"/>
+  <img width="100" height="100" src="docs/3.gif"/>
 </div>
 
 ## Ini Berita.apk
