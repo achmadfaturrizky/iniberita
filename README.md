@@ -53,6 +53,7 @@ npm run ios       //ios
 &nbsp;
 <div align="center">
   <img src="docs/3.gif"/>
+  <img src="docs/3.gif"/>
 </div>
 
 ## Ini Berita.apk
