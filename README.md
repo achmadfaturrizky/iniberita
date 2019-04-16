@@ -30,13 +30,6 @@ Enter into project directory and install all dependencies
 cd your_app_name && npm install
 ```
 
-Create .env file and setup your HOST_API and API_KEY
-
-```
-API_HOST=https://api.nytimes.com/svc
-API_KEY=DDybpz53aASD12dZAexAxRsKSqWb4446
-```
-
 Run the project via command line
 
 ```
